@@ -1,0 +1,49 @@
+{
+    "name": "gsu-dle/web-tools",
+    "description": "Web Tools",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "GAState\\Tools\\Web\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Melody Forest",
+            "email": "mforest@gsu.edu"
+        }
+    ],
+    "require": {
+        "php": "^8.1",
+        "psr/log": "^3.0",
+        "psr/http-message": "^1.0",
+        "psr/http-factory": "^1.0",
+        "vlucas/phpdotenv": "^5.5",
+        "martin-hughes/auryn": "^1.4",
+        "monolog/monolog": "^3.2",
+        "nyholm/psr7": "^1.5",
+        "nyholm/psr7-server": "^1.0",
+        "aura/router": "^3.2",
+        "laminas/laminas-httphandlerrunner": "^2.3"
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^1.8",
+        "phpstan/extension-installer": "^1.1",
+        "phpstan/phpstan-strict-rules": "^1.3"
+    },
+    "scripts": {
+        "static-analysis": [
+            "phpstan clear-result-cache",
+            "phpstan analyse --level 9 src www"
+        ],
+        "run-server": [
+            "@php -S localhost:8080 -t www"
+        ]
+    },
+    "config": {
+        "allow-plugins": {
+            "phpstan/extension-installer": true
+        }
+    }
+}
+ 

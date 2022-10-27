@@ -1,0 +1,7 @@
+.env
+coverage.xml
+composer.phar
+composer.lock
+/vendor/
+/.vscode/
+/logs/
