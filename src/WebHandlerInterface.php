@@ -7,7 +7,7 @@ namespace GAState\Tools\Web;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
-interface WebHandler
+interface WebHandlerInterface
 {
     /**
      * @param ServerRequestInterface $request

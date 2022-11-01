@@ -6,11 +6,11 @@ namespace GAState\Tools\Web;
 
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Log\LoggerInterface;
 
-
-class ClosureWebHandler implements WebHandler
+class ClosureWebHandler implements WebHandlerInterface
 {
-    public function __construct(protected \Closure $handler)
+    public function __construct(protected LoggerInterface $logger, protected \Closure $handler)
     {
     }
 
