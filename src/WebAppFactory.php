@@ -96,6 +96,7 @@ class WebAppFactory
         $this->declareWebHandlerFactory();
         $this->declareWebRouter();
         $this->declareResponseEmitter();
+        $this->declareWebTemplateEngine();
         $this->declareWebApp();
     }
 
@@ -236,6 +237,20 @@ class WebAppFactory
     protected function declareResponseEmitter(): void
     {
         $this->injector->alias(EmitterInterface::class, SapiEmitter::class);
+    }
+
+
+    /**
+     * @return void
+     */
+    protected function declareWebTemplateEngine(): void
+    {
+        $this->injector
+            ->define(WebTemplateEngine::class, [
+                ':templateDir' => $this->env['WEB_TEMPLATE_DIR'] ?? ''
+            ])
+            ->share(WebTemplateEngine::class)
+            ->alias(WebTemplateEngineInterface::class, WebTemplateEngine::class);
     }
 
 

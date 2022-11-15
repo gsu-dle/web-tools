@@ -4,14 +4,21 @@ declare(strict_types=1);
 
 namespace GAState\Tools\Web;
 
+use Closure;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
 
 class ClosureWebHandler implements WebHandlerInterface
 {
-    public function __construct(protected LoggerInterface $logger, protected \Closure $handler)
-    {
+    /**
+     * @param LoggerInterface $logger
+     * @param Closure $handler
+     */
+    public function __construct(
+        protected LoggerInterface $logger,
+        protected Closure $handler
+    ) {
     }
 
 
