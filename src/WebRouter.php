@@ -48,7 +48,7 @@ abstract class WebRouter implements WebRouterInterface
      * 
      * @return WebHandlerInterface
      */
-    public function getWebHandler(ServerRequestInterface $request): WebHandlerInterface
+    public function getWebHandler(ServerRequestInterface &$request): WebHandlerInterface
     {
         // Match the request to a route
         $matcher = $this->router->getMatcher();
@@ -78,7 +78,7 @@ abstract class WebRouter implements WebRouterInterface
      * @return WebHandlerInterface
      */
     public function getWebErrorHandler(
-        ServerRequestInterface $request,
+        ServerRequestInterface &$request,
         Throwable $error
     ): WebHandlerInterface {
         return $this->webHandlerFactory->createWebHandler($this->env['WEB_ERROR_HANDLER'] ?? WebErrorHandler::class);

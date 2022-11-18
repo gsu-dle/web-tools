@@ -20,12 +20,12 @@ class WebErrorHandler implements WebHandlerInterface
      * @param ServerRequestInterface $request
      * @param ResponseInterface $response
      * 
-     * @return ResponseInterface
+     * @return void
      */
     public function process(
-        ServerRequestInterface $request,
-        ResponseInterface $response
-    ): ResponseInterface {
+        ServerRequestInterface &$request,
+        ResponseInterface &$response
+    ): void {
         $error = $request->getAttribute('error');
         if (!$error instanceof Throwable) {
             $error = new WebError(WebResponseCode::INTERNAL_SERVER_ERROR);
@@ -33,6 +33,6 @@ class WebErrorHandler implements WebHandlerInterface
         if (!$error instanceof WebError) {
             $error = new WebError(500, $error);
         }
-        return $response->withStatus($error->getCode(), $error->getMessage());
+        $response = $response->withStatus($error->getCode(), $error->getMessage());
     }
 }

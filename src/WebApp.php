@@ -55,16 +55,17 @@ class WebApp implements WebAppInterface
 
             // Process the request
             try {
-                $request = $this->preProcessRequest($request);
+                $this->preProcessRequest($request);
 
                 $webHandler = $this->router->getWebHandler($request);
-                $response = $this->processRequest($webHandler, $request, $response);
 
-                $response = $this->postProcessRequest($request, $response);
+                $this->processRequest($webHandler, $request, $response);
+
+                $this->postProcessRequest($request, $response);
             } catch (Throwable $error) {
                 $request = $request->withAttribute('error', $error);
                 $webHandler = $this->router->getWebErrorHandler($request, $error);
-                $response = $this->processRequest($webHandler, $request, $response);
+                $this->processRequest($webHandler, $request, $response);
 
                 $this->logger->error('An error has occurred', [$error->__toString()]);
                 $this->logger->error(WebLogger::createAccessLogEntry($this->started, $request, $response));
@@ -108,11 +109,10 @@ class WebApp implements WebAppInterface
     /**
      * @param ServerRequestInterface $request
      * 
-     * @return ServerRequestInterface
+     * @return void
      */
-    protected function preProcessRequest(ServerRequestInterface $request): ServerRequestInterface
+    protected function preProcessRequest(ServerRequestInterface &$request): void
     {
-        return $request;
     }
 
 
@@ -120,13 +120,12 @@ class WebApp implements WebAppInterface
      * @param ServerRequestInterface $request
      * @param ResponseInterface $response
      * 
-     * @return ResponseInterface
+     * @return void
      */
     protected function postProcessRequest(
-        ServerRequestInterface $request,
-        ResponseInterface $response
-    ): ResponseInterface {
-        return $response;
+        ServerRequestInterface &$request,
+        ResponseInterface &$response
+    ): void {
     }
 
 
@@ -135,14 +134,14 @@ class WebApp implements WebAppInterface
      * @param ServerRequestInterface $request
      * @param ResponseInterface $response
      * 
-     * @return ResponseInterface
+     * @return void
      */
     protected function processRequest(
         WebHandlerInterface $webHandler,
-        ServerRequestInterface $request,
-        ResponseInterface $response
-    ): ResponseInterface {
-        return $webHandler->process($request, $response);
+        ServerRequestInterface &$request,
+        ResponseInterface &$response
+    ): void {
+        $webHandler->process($request, $response);
     }
 
 
