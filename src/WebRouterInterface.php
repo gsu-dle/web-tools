@@ -22,7 +22,7 @@ interface WebRouterInterface
      * 
      * @return WebHandlerInterface
      */
-    public function getWebHandler(ServerRequestInterface $request): WebHandlerInterface;
+    public function getWebHandler(ServerRequestInterface &$request): WebHandlerInterface;
 
 
     /**
@@ -32,7 +32,7 @@ interface WebRouterInterface
      * @return WebHandlerInterface
      */
     public function getWebErrorHandler(
-        ServerRequestInterface $request,
+        ServerRequestInterface &$request,
         Throwable $error
     ): WebHandlerInterface;
 }

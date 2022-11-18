@@ -13,10 +13,10 @@ interface WebHandlerInterface
      * @param ServerRequestInterface $request
      * @param ResponseInterface $response
      * 
-     * @return ResponseInterface
+     * @return void
      */
     public function process(
-        ServerRequestInterface $request,
-        ResponseInterface $response
-    ): ResponseInterface;
+        ServerRequestInterface &$request,
+        ResponseInterface &$response
+    ): void;
 }
